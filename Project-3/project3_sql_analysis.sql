@@ -18,6 +18,20 @@ CREATE DATABASE orders;
 -- Using the orders schema
 USE orders;
 
+-- Changing the Date from text to datetime
+SELECT `Date`,str_to_date(`Date`,'%Y/%m/%d')
+FROM cleaned_ecommerce_transactions;
+
+UPDATE cleaned_ecommerce_transactions
+SET `Date` = 
+CASE 
+    WHEN `Date` LIKE '%/%' THEN STR_TO_DATE(`Date`, '%m/%d/%y')
+    ELSE `Date`
+END;
+
+ALTER  TABLE cleaned_ecommerce_transactions
+MODIFY COLUMN `Date` DATE;
+
 -- ------------------------------------------------------------------------------------------------------------
 -- BASIC QUERIES
 -- ------------------------------------------------------------------------------------------------------------
